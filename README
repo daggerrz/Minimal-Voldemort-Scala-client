@@ -1,0 +1,25 @@
+A minimal wrapper for Voldemort client written in Scala
+
+# Example usage
+
+1 - start Voldemort
+2 - sbt console
+3 - run some commands:
+
+  scala> import minimal.voldemort.client._ 
+  import minimal.voldemort.client._
+
+  scala> val c = new SimpleVoldemortClient[String, String]("test", "tcp://localhost:6666")
+  c: minimal.voldemort.client.SimpleVoldemortClient[String,String] = minimal.voldemort.client.SimpleVoldemortClient@632b6836
+
+  scala> c.get("ale")
+  res0: Option[String] = None
+
+  scala> c.put("ale", "Crosa")
+
+  scala> c.get("ale")
+  res2: Option[String] = Some(Crosa)
+
+  scala> c.get(List("ale", "c", "none?"))
+  res3: scala.collection.Map[String,voldemort.versioning.Versioned[String]] = Map((ale,[Crosa, version(0:1)]))
+  
