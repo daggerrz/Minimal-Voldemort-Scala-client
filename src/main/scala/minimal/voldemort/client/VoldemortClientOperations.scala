@@ -30,12 +30,20 @@ trait VoldemortClientOperations[K, V] {
 
   /**
    * get all the values for the specified collection of keys
-   * use pattern matching afterwards
+   * calls getAll
    *
    * @param keys Iterable[K] a list of keys to fetch from the nodes
    * @return Map[K, Option[V]] a map representation of the keys and their version
    */
-  def get(keys: Iterable[K]): Map[K, Versioned[V]] = client.getAll(keys.asJava).asScala
+  def get(keys: Iterable[K]): Map[K, Versioned[V]] = getAll(keys)
+
+  /**
+   * get all the values for the specified collection of keys
+   *
+   * @param keys Iterable[K] a list of keys to fetch from the nodes
+   * @return Map[K, Option[V]] a map representation of the keys and their version
+   */
+  def getAll(keys: Iterable[K]): Map[K, Versioned[V]] = client.getAll(keys.asJava).asScala
 
   /**
    * put a value on the specified key

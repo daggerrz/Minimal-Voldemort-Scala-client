@@ -20,15 +20,24 @@ class SimpleVoldemortClientSpec extends Specification {
       client.get("key") mustEqual Some("value")
     }
 
+    "return all the specified keys when calling get with an Iterator" in {
+      client.put("key", "value")
+      client.put("key2", "value2")
+      // Support any iterable like List
+      val allValues = client.get(List("key", "key2")) // Calls getAll
+      allValues("key").getValue mustEqual "value"
+      allValues("key2").getValue mustEqual "value2"
+    }
+
     "return all the specified keys" in {
       client.put("key", "value")
       client.put("key2", "value2")
       // Support any iterable like List
-      val allValues = client.get(List("key", "key2"))
+      val allValues = client.getAll(List("key", "key2"))
       allValues("key").getValue mustEqual "value"
       allValues("key2").getValue mustEqual "value2"
       // Support other Iterables like Array
-      val moreValues = client.get(List("key", "key2"))
+      val moreValues = client.getAll(List("key", "key2"))
       moreValues("key").getValue mustEqual "value"
       moreValues("key2").getValue mustEqual "value2"
     }
