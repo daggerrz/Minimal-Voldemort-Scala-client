@@ -4,7 +4,7 @@ import voldemort.client.StoreClient
 import voldemort.cluster.Node
 import voldemort.versioning._
 import scala.collection.Map
-import scalaj.collection.Imports._ // Java builtin Voldemort client expects Java collections
+import scala.collection.JavaConversions._
 
 /**
  * Operations we support on a Voldemort store
@@ -43,7 +43,7 @@ trait VoldemortClientOperations[K, V] {
    * @param keys Iterable[K] a list of keys to fetch from the nodes
    * @return Map[K, Option[V]] a map representation of the keys and their version
    */
-  def getAll(keys: Iterable[K]): Map[K, Versioned[V]] = client.getAll(keys.asJava).asScala
+  def getAll(keys: Iterable[K]): Map[K, Versioned[V]] = client.getAll(asJavaIterable(keys))
 
   /**
    * put a value on the specified key
@@ -85,5 +85,5 @@ trait VoldemortClientOperations[K, V] {
    * @param key K
    * @return Seq[Node]
    */
-  def getResponsibleNodes(key: K): Seq[Node] = client.getResponsibleNodes(key).asScala
+  def getResponsibleNodes(key: K): Seq[Node] = client.getResponsibleNodes(key)
 }

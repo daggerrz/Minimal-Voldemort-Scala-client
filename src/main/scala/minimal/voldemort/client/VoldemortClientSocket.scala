@@ -11,10 +11,10 @@ import voldemort.client.StoreClient
  */
 trait VoldemortClientSocket[K, V] {
 
-  val storeUrl: String
+  val storeUrls: Seq[String]
   val storeName: String
 
-  val clientConfig: ClientConfig = new ClientConfig().setBootstrapUrls(storeUrl)
+  val clientConfig: ClientConfig = new ClientConfig().setBootstrapUrls(storeUrls: _*)
   clientConfig.setFailureDetectorBannagePeriod(1000) // In the case of errors reconnect after 1 second
   val clientFactory: SocketStoreClientFactory = new SocketStoreClientFactory(clientConfig)
   val client: StoreClient[K, V] = clientFactory.getStoreClient(storeName)

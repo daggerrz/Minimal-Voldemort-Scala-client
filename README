@@ -9,7 +9,7 @@ A minimal wrapper for Voldemort client written in Scala
   scala> import minimal.voldemort.client._ 
   import minimal.voldemort.client._
 
-  scala> val c = new SimpleVoldemortClient[String, String]("test", "tcp://localhost:6666")
+  scala> val c = SimpleVoldemortClient[String, String]("test", List("tcp://localhost:6666"))
   c: minimal.voldemort.client.SimpleVoldemortClient[String,String] = minimal.voldemort.client.SimpleVoldemortClient@632b6836
 
   scala> c.get("ale")
