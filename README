@@ -9,7 +9,7 @@ A minimal wrapper for Voldemort client written in Scala
   scala> import minimal.voldemort.client._ 
   import minimal.voldemort.client._
 
-  scala> val c = SimpleVoldemortClient[String, String]("test", List("tcp://localhost:6666"))
+  scala> val c = SimpleVoldemortClient[String, String]("test", "tcp://localhost:6666")
   c: minimal.voldemort.client.SimpleVoldemortClient[String,String] = minimal.voldemort.client.SimpleVoldemortClient@632b6836
 
   scala> c.get("ale")
@@ -23,3 +23,17 @@ A minimal wrapper for Voldemort client written in Scala
   scala> c.get(List("ale", "c", "none?"))
   res3: scala.collection.Map[String,voldemort.versioning.Versioned[String]] = Map((ale,[Crosa, version(0:1)]))
   
+# Shared configuration
+
+  scala> import minimal.voldemort.client._
+  import minimal.voldemort.client._
+
+  scala> val config = SimpleVoldemortConfig(List("tcp://localhost:6666"))(_.setFailureDetectorBannagePeriod(5000))
+  config: minimal.voldemort.client.SimpleVoldemortConfig = SimpleVoldemortConfig(List(tcp://localhost:6666),Some(<function1>))
+
+  scala> val test1 = SimpleVoldemortClient[String,String]("test1", config)
+  test1: minimal.voldemort.client.SimpleVoldemortClient[String,String] = minimal.voldemort.client.SimpleVoldemortClient@742430a2
+
+  scala> val test2 = config.getStoreClient[String,String]("test2")
+  test2: minimal.voldemort.client.SimpleVoldemortClient[String,String] = minimal.voldemort.client.SimpleVoldemortClient@742430a2
+
