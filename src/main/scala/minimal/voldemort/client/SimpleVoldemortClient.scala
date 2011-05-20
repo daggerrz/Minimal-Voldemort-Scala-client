@@ -1,11 +1,6 @@
 package minimal.voldemort.client
 
-import voldemort.client.{SocketStoreClientFactory, ClientConfig, StoreClient}
-
-abstract class AbstractVoldemortClient[K, V](config: SimpleVoldemortConfig) extends VoldemortClientOperations[K, V] {
-  val storeName: String
-  val client: StoreClient[K, V] = config.getStoreClient(storeName)
-}
+import voldemort.client.StoreClient
 
 /**
  * An extremely simple wrapper for the Voldemort distributed key value store
@@ -15,7 +10,9 @@ abstract class AbstractVoldemortClient[K, V](config: SimpleVoldemortConfig) exte
  * @param storeName String the store we are going to use on the voldemort nodes (make sure your config file defines this)
  * @param storeUrl  String the url of the voldemort host ex. tcp://localhost:6666
  */
-class SimpleVoldemortClient[K, V](val storeName: String, config: SimpleVoldemortConfig) extends AbstractVoldemortClient[K, V](config)
+class SimpleVoldemortClient[K, V](val storeName: String, config: SimpleVoldemortConfig) extends VoldemortClientOperations[K, V] {
+  val client: StoreClient[K, V] = config.getStoreClient(storeName)
+}
 
 object SimpleVoldemortClient {
 
