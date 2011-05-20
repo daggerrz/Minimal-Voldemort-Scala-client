@@ -23,8 +23,8 @@ trait VoldemortClientOperations[K, V] {
    */
   def get(key: K): Option[V] = {
     client.getValue(key.asInstanceOf[K]) match {
-      case value: V => Some(value)
-      case _ => None
+      case null => None
+      case value @ _ => Some(value)
     }
   }
 
