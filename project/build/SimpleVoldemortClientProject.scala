@@ -14,6 +14,7 @@ class SimpleVoldemortClientProject(info: ProjectInfo) extends DefaultProject(inf
   val googleCollections = "com.google.collections" % "google-collections" % "1.0"
   val commonsLang = "commons-lang" % "commons-lang" % "2.4"
   val jdom = "jdom" % "jdom" % "1.1"
+  val protobuf = "com.google.protobuf" % "protobuf-java" % "2.3.0"
 
   val log4j = "log4j" % "log4j" % "1.2.14"
 

@@ -22,6 +22,7 @@ case class SimpleVoldemortConfig(storeUrls: Seq[String], configurator: Option[Cl
    * @param storeName the store name
    */
   def getStoreClient[K, V](storeName: String) = clientFactory.getStoreClient[K, V](storeName)
+
 }
 
 object SimpleVoldemortConfig {

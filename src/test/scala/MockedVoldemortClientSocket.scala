@@ -9,6 +9,6 @@ trait MockedVoldemortClientSocket[K, V] {
   val storeName: String
 
   val serializer = new StringSerializer
-  val factory = new MockStoreClientFactory(serializer, serializer)
+  val factory = new MockStoreClientFactory(serializer, serializer, serializer)
   val client = factory.getStoreClient[K, V]("test")
 }
