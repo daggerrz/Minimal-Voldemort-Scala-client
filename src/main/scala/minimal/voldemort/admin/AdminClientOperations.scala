@@ -22,9 +22,9 @@ trait AdminClientOperations {
   def fetchEntries(node: Int, storeName: String, partitions: List[Int],
                 skipRecords: Long = 0,
                 onlyMasterEntries: Boolean = true
-                  ) : Stream[(voldemort.utils.ByteArray, Versioned[Array[Byte]])] = {
+                  ) : Iterator[(voldemort.utils.ByteArray, Versioned[Array[Byte]])] = {
     client.fetchEntries(node, storeName, partitions, null, onlyMasterEntries, skipRecords)
-      .asScala.toStream.map(pair => (pair.getFirst, pair.getSecond))
+      .asScala.map(pair => (pair.getFirst, pair.getSecond))
   }
 
 }
